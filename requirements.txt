@@ -10,3 +10,5 @@ six==1.12.0
 virtualenv==16.6.0
 Cython
 cython
+numpy
+pandas
