@@ -20,12 +20,19 @@
     force: yes
   when: ansible_os_family == 'Debian'
 
-- name: download wkthmltox Ubuntu 18
+- name: download wkthmltox Ubuntu 18 x86
   get_url:
     url: https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_{{ "amd64" if ansible_architecture == "x86_64" else "i386"}}.deb
     dest: /tmp/wkhtmltox.deb
     checksum: "sha256:{{ 'db48fa1a043309c4bfe8c8e0e38dc06c183f821599dd88d4e3cea47c5a5d4cd3' if ansible_architecture == 'x86_64' else '1f5ac84c1cb25e385b49b94a04807d60bf73da217bc6c9fe2cbd1f0a61d33f63' }}"
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version == '18'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version == '18' and ansible_architecture == 'x86_64'
+  
+- name: download wkthmltox Ubuntu 18 ARM
+  get_url:
+    url: https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_{{ "arm64" if ansible_architecture == "aarch64" else "aarch64"}}.deb
+    dest: /tmp/wkhtmltox.deb
+    checksum: "sha256:{{ 'db48fa1a043309c4bfe8c8e0e38dc06c183f821599dd88d4e3cea47c5a5d4cd3' if ansible_architecture == 'x86_64' else '1f5ac84c1cb25e385b49b94a04807d60bf73da217bc6c9fe2cbd1f0a61d33f63' }}"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version == '18' and ansible_architecture == 'aarch64'
 
 - name: download wkthmltox Ubuntu 16
   get_url:
