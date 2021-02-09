@@ -39,7 +39,7 @@
       !includedir /etc/mysql/mariadb.conf.d/
   become: yes
   become_user: root
-  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Debian'
 
 - name: Add additional conf for MariaDB 10.2 in mariadb.conf.d
   blockinfile:
@@ -55,22 +55,13 @@
     create: yes
   become: yes
   become_user: root
-  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
-
-- name: Start and enable service
-  service:
-    name: mysql
-    state: started
-    enabled: yes
+  when: ansible_distribution == 'Debian'
 
 - debug:
     msg: "{{ mysql_root_password }}"
 
 - include_tasks: mysql_secure_installation.yml
-  when: mysql_root_password is defined
 
 - debug:
     var: mysql_secure_installation
-  when: mysql_secure_installation and mysql_root_password is defined
-
 ...
