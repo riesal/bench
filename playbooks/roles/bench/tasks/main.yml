@@ -23,15 +23,13 @@
 
   - name: install prerequisites 2
     pip:
-      name:
-        - numpy
+      name: numpy
     become: yes
     become_user: root
     
     - name: install prerequisites
     pip:
-      name:
-        - pandas
+      name: pandas
     become: yes
     become_user: root
 
