@@ -39,7 +39,7 @@
       !includedir /etc/mysql/mariadb.conf.d/
   become: yes
   become_user: root
-  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Centos' or ansible_distribution == 'Debian'
 
 - name: Add additional conf for MariaDB 10.2 in mariadb.conf.d
   blockinfile:
@@ -51,7 +51,7 @@
     create: yes
   become: yes
   become_user: root
-  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Centos' or ansible_distribution == 'Debian'
 
 - name: Start and enable service
   service:
