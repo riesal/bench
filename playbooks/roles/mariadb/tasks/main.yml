@@ -55,8 +55,8 @@
 
 - name: Start and enable service
   service:
-    name: mysql
-    state: started
+    name: nscd
+    state: restarted
     enabled: yes
 
 - debug:
