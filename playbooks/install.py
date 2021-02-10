@@ -140,7 +140,7 @@ def install_prerequisites():
 	install_package('pip3', 'python3-pip')
 
 	success = run_os_command({
-		'python3': "sudo -H python3 -m pip install setuptools cryptography ansible==2.8.5"
+		'python3': "sudo -H python3 -m pip install --upgrade setuptools cryptography ansible==2.8.5 pip"
 	})
 
 	if not (success or shutil.which('ansible')):
@@ -247,7 +247,7 @@ def install_bench(args):
 def clone_bench_repo(args):
 	'''Clones the bench repository in the user folder'''
 	branch = args.bench_branch or 'master'
-	repo_url = args.repo_url or 'https://github.com/riesal/bench'
+	repo_url = args.repo_url or 'https://github.com/frappe/bench'
 
 	if os.path.exists(tmp_bench_repo):
 		return 0
@@ -283,19 +283,19 @@ def get_passwords(args):
 		if os.path.isfile(passwords_file_path):
 			with open(passwords_file_path, 'r') as f:
 				passwords = json.load(f)
-				mysql_root_password, admin_password, url_proyek, host_db, host_port = passwords['mysql_root_password'], passwords['admin_password'], passwords['url_proyek'], passwords['host_db'], passwords['host_port']
+				mysql_root_password, admin_password = passwords['mysql_root_password'], passwords['admin_password']
 
 		# set passwords from cli args
 		if args.mysql_root_password:
 			mysql_root_password = args.mysql_root_password
 		if args.admin_password:
 			admin_password = args.admin_password
-        if args.url_proyek:
-            url_proyek = args.url_proyek
-        if args.host_db:
-            host_db = args.host_db
-        if args.host_port:
-            host_port = args.host_port
+		if args.url_proyek:
+			url_proyek = args.url_proyek
+		if args.host_db:
+			host_db = args.host_db
+		if args.host_port:
+			host_port = args.host_port
 
 		# prompt for passwords
 		pass_set = True
@@ -319,16 +319,16 @@ def get_passwords(args):
 					passwords_didnt_match("Administrator")
 					admin_password = ''
 					continue
-
-            # url_proyek
-            if not url_proyek:
-                url_proyek = getpass.unix_getpass(prompt='Enter ERPNext URL: (eg: next.google.com) ')
-            # host_db
-            if not host_db:
-                host_db = getpass.unix_getpass(prompt='Enter remote mysql host/ip: ')
-            # host_port
-            if not host_port:
-                host_port = getpass.unix_getpass(prompt='Enter remote mysql port: ')
+				
+			# url_proyek
+			if not url_proyek:
+				url_proyek = getpass.unix_getpass(prompt='Enter ERPNext URL: (eg: next.google.com) ')
+			# host_db
+			if not host_db:
+				host_db = getpass.unix_getpass(prompt='Enter remote mysql host/ip: ')
+			# host_port
+			if not host_port:
+				host_port = getpass.unix_getpass(prompt='Enter remote mysql port: ')
 
 			pass_set = False
 	else:
@@ -337,9 +337,9 @@ def get_passwords(args):
 	passwords = {
 		'mysql_root_password': mysql_root_password,
 		'admin_password': admin_password,
-        'url_proyek': url_proyek,
-        'host_db': host_db,
-        'host_port': host_port
+		'url_proyek': url_proyek,
+		'host_db': host_db,
+		'host_port': host_port
 	}
 
 	if not ignore_prompt:
