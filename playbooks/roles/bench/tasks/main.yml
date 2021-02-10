@@ -27,7 +27,7 @@
     become: yes
     become_user: root
     
-    - name: install prerequisites
+  - name: install prerequisites 3
     pip:
       name: pandas
     become: yes
