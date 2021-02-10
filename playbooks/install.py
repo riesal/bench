@@ -283,7 +283,7 @@ def get_passwords(args):
 		if os.path.isfile(passwords_file_path):
 			with open(passwords_file_path, 'r') as f:
 				passwords = json.load(f)
-				mysql_root_password, admin_password = passwords['mysql_root_password'], passwords['admin_password']
+				mysql_root_password, admin_password, url_proyek, host_db, host_port = passwords['mysql_root_password'], passwords['admin_password'], passwords['url_proyek'], passwords['host_db'], passwords['host_port']
 
 		# set passwords from cli args
 		if args.mysql_root_password:
