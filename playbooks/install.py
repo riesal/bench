@@ -140,7 +140,7 @@ def install_prerequisites():
 	install_package('pip3', 'python3-pip')
 
 	success = run_os_command({
-		'python3': "sudo -H python3 -m pip install --upgrade setuptools cryptography ansible==2.8.5 pip"
+		'python3': "sudo -H python3 -m pip install setuptools cryptography ansible==2.8.5"
 	})
 
 	if not (success or shutil.which('ansible')):
@@ -247,7 +247,7 @@ def install_bench(args):
 def clone_bench_repo(args):
 	'''Clones the bench repository in the user folder'''
 	branch = args.bench_branch or 'master'
-	repo_url = args.repo_url or 'https://github.com/frappe/bench'
+	repo_url = args.repo_url or 'https://github.com/riesal/bench'
 
 	if os.path.exists(tmp_bench_repo):
 		return 0
