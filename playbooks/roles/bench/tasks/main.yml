@@ -13,12 +13,24 @@
     command: 'cp -R /tmp/.bench {{ bench_repo_path }}'
     when: tmp_bench.stat.exists and not bench_repo_register.stat.exists
     
-  - name: install prerequisites
+  - name: install prerequisites 1
     pip:
       name:
         - cython
         - Cython
+    become: yes
+    become_user: root
+
+  - name: install prerequisites 2
+    pip:
+      name:
         - numpy
+    become: yes
+    become_user: root
+    
+    - name: install prerequisites
+    pip:
+      name:
         - pandas
     become: yes
     become_user: root
