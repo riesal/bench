@@ -421,7 +421,7 @@ def parse_commandline_args():
 	parser.add_argument('--container', dest='container', default=False, action='store_true', help='Use if you\'re creating inside LXC')
 	parser.add_argument('--url_proyek', dest='url_proyek', help='endpoint url of erpnext')
 	parser.add_argument('--host_db', dest='host_db', help='ip/host of mysql')
-	parser.add_arguemnt('--host_port', dest='host_port', help='host_port')
+	parser.add_argument('--host_port', dest='host_port', help='host_port')
 	args = parser.parse_args()
 
 	return args
