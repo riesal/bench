@@ -275,7 +275,7 @@ def get_passwords(args):
 	"""
 	log("Input MySQL and Frappe Administrator passwords:")
 	ignore_prompt = args.run_travis or args.without_bench_setup
-	mysql_root_password, admin_password = '', ''
+	mysql_root_password, admin_password, url_proyek, host_db, host_port = '', '' , '', '' , ''
 	passwords_file_path = os.path.join(os.path.expanduser('~' + args.user), 'passwords.txt')
 
 	if not ignore_prompt:
@@ -283,13 +283,19 @@ def get_passwords(args):
 		if os.path.isfile(passwords_file_path):
 			with open(passwords_file_path, 'r') as f:
 				passwords = json.load(f)
-				mysql_root_password, admin_password = passwords['mysql_root_password'], passwords['admin_password']
+				mysql_root_password, admin_password, url_proyek, host_db, host_port = passwords['mysql_root_password'], passwords['admin_password'], passwords['url_proyek'], passwords['host_db'], passwords['host_port']
 
 		# set passwords from cli args
 		if args.mysql_root_password:
 			mysql_root_password = args.mysql_root_password
 		if args.admin_password:
 			admin_password = args.admin_password
+        if args.url_proyek:
+            url_proyek = args.url_proyek
+        if args.host_db:
+            host_db = args.host_db
+        if args.host_port:
+            host_port = args.host_port
 
 		# prompt for passwords
 		pass_set = True
@@ -314,13 +320,26 @@ def get_passwords(args):
 					admin_password = ''
 					continue
 
+            # url_proyek
+            if not url_proyek:
+                url_proyek = getpass.unix_getpass(prompt='Enter ERPNext URL: (eg: next.google.com) ')
+            # host_db
+            if not host_db:
+                host_db = getpass.unix_getpass(prompt='Enter remote mysql host/ip: ')
+            # host_port
+            if not host_port:
+                host_port = getpass.unix_getpass(prompt='Enter remote mysql port: ')
+
 			pass_set = False
 	else:
 		mysql_root_password = admin_password = 'travis'
 
 	passwords = {
 		'mysql_root_password': mysql_root_password,
-		'admin_password': admin_password
+		'admin_password': admin_password,
+        'url_proyek': url_proyek,
+        'host_db': host_db,
+        'host_port': host_port
 	}
 
 	if not ignore_prompt:
