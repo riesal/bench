@@ -16,7 +16,6 @@
     group: root
     mode: 0644
   when: mysql_conf_tpl != 'change_me' and ansible_distribution != 'Debian'
-  notify: restart mysql
 
 - include_tasks: debian.yml
   when: ansible_distribution == 'Debian'
