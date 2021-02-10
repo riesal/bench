@@ -15,7 +15,7 @@
     register: site_folder
 
   - name: Create a new site
-    command: "bench new-site {{ url_proyek }} --admin-password '{{ admin_password }}' --mariadb-root-password '{{ mysql_root_password }}' --db-host '{{ db_host }}' --db-port '{{ db_port }}'"
+    command: "bench new-site {{ url_proyek }} --admin-password '{{ admin_password }}' --mariadb-root-password '{{ mysql_root_password }}' --db-host '{{ host_db }}' --db-port '{{ host_port }}'"
     args:
       chdir: "{{ bench_path }}"
     when: not site_folder.stat.exists
